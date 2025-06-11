@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  gitea:
+    image: docker.gitea.com/gitea:1.24.0
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    volumes:
+      - __GITEA_DATA_PATH__:/data  # <-- placeholder
+    ports:
+      - "3000:3000"
+      - "2222:22"
+
+networks:
+  default:
+    external: false
