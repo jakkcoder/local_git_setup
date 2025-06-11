@@ -56,7 +56,7 @@ Make sure you have the following installed:
 2. Run:
 
    ```powershell
-   ./setup.ps1
+   powershell -ExecutionPolicy Bypass -File .\setup.ps1       
    ```
 
 3. Gitea will be accessible at [http://localhost:3000](http://localhost:3000)
