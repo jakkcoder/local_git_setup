@@ -112,14 +112,54 @@ rm -rf /yourpath/gitea-data
 * [Gitea Documentation](https://docs.gitea.io/en-us/)
 * [Docker Hub Image](https://hub.docker.com/r/gitea/gitea)
 
+
+1. Instructions for **removing file upload restrictions** via `app.ini`.
+2. A note about **PowerShell execution policy** and how to bypass it if blocked on Windows.
+
+---
+
+### ✅ Updated Section to Add in Your `README.md`
+
+Append this to your existing `README.md`:
+
+---
+
+## 📦 Increase File Upload Limit in Gitea
+
+By default, Gitea restricts file attachment size to 4 MB. To **remove or increase this limit**, modify the `app.ini` configuration file:
+
+### 🔧 Steps
+
+1. Run Gitea once via Docker to generate the config file.
+
+2. Stop the container:
+
+   ```bash
+   docker-compose -f docker-compose.generated.yml down
+   ```
+
+3. Locate and edit `app.ini`:
+
+   * Linux: `/<mount-point>/gitea-data/gitea/conf/app.ini`
+   * Windows: `D:\gitea-data\gitea\conf\app.ini` (or wherever it was mounted)
+
+4. Add or modify:
+
+   ```ini
+   [attachment]
+   MAX_SIZE = 1048576000   ; ~1 GB
+   ALLOWED_TYPES = */*     ; allow all file types
+
+   [repository]
+   MAX_CREATION_LIMIT = -1  ; unlimited repos (optional)
+   ```
+
+5. Restart Gitea:
+
+   ```bash
+   docker-compose -f docker-compose.generated.yml up -d
+   ```
+
 ---
 
 Happy coding! 🚀
-
-```
-
-Let me know if you want to add sections for:
-- Reverse proxy + SSL
-- Gitea database backend (PostgreSQL or MySQL)
-- Automatic backups
-```
